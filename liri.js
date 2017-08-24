@@ -11,14 +11,17 @@ var command = process.argv[2];
 var value = process.argv[3];
 var movieName = " ";
 var songName = " ";
+var handle = " ";
 
 for (i = 3; i < arg.length; i++) {
     if (i > 3 && i < arg.length) {
         movieName = movieName + "+" + arg[i];
         songName = songName + "+" + arg[i];
+        handle = handle + "+" + arg[i]; 
     } else {
         movieName += arg[i];
         songName += arg[i];
+        handle += arg[i];
     }
 }
 switch (command) {
@@ -29,7 +32,7 @@ switch (command) {
         spotify();
         break;
     case "movie-this":
-        omdb()
+        omdb();
         break;
     case "do-what-it-says":
         doThing();
@@ -41,8 +44,12 @@ switch (command) {
 //------------------ Twitter-----------------------------------------
 // you make an object that has paramters (params)in it
 function twitter() {
+    if (process.argv[3] === undefined) {
+        handle = 'yoshistunts';
+    } 
+    
     var params = {
-        q: 'yoshistunts', // here giving information of what to search for
+        q: handle, // here giving information of what to search for
         count: 20, // get number of tweets back
         event: 'user_event',
         exclude: 'replies'
@@ -134,13 +141,16 @@ function omdb() {
 }
 //------------------Do This-----------------------------------------
 function doThing() {
-    fs.readFile("./random.txt", "utf8", function(error, data) {
+    fs.readFile("random.txt", "utf8", function(error, data) {
         if (error) {
             return console.log(error);
         }
         var dataArr = data.split(",");
         command = dataArr[0];
-        value = dataArr[1];
+       
+        liriTweet = dataArr[1];
+        songName = dataArr[1];
+        movieName = dataArr[1];
         switch (command) {
             case "my-tweets":
                 twitter();
