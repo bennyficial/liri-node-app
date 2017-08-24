@@ -44,7 +44,7 @@ function twitter() {
     var params = {
         q: 'yoshistunts', // here giving information of what to search for
         count: 20, // get number of tweets back
-        // event: 'user_event',
+        event: 'user_event',
         exclude: 'replies'
     };
     // i am asking twitter to search for tweets
