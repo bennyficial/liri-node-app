@@ -41,9 +41,6 @@ switch (command) {
     case "movie-this":
         omdb();
         break;
-    // case "do-what-it-says":
-    //     doThing();
-    //     break;
     default:
         console.log("{Please enter a command: my-tweets, spotify-this-song, movie-this, do-what-it-says}");
         break;
@@ -78,7 +75,9 @@ function twitter() {
 }
 //------------------Spotify-----------------------------------------
 function spotify() {
-    if (process.argv[3] === undefined) {
+    if (songName === " ") {
+        songName = "The+Sign";
+
     }
     var spotify_params = {
         type: 'track',
@@ -156,20 +155,22 @@ function doThing() {
         command = dataArr[0];
         value =  dataArr[1];
 
-        // console.log(command);
-        // console.log(value);
+        console.log(command);
+        console.log(value);
 
-        if (value === undefined){
+        if (dataArr[1] === undefined){
         handle = 'yoshistunts';
         songName = 'The+Sign';
-        movieName = 'Mr.+Nobody';  
+        movieName = 'Mr.+Nobody'; 
+        liriSwitch(); 
         }else {
-        handle = value;
-        songName = value;
-        movieName = value;    
+        handle = dataArr[1];
+        songName = dataArr[1];
+        movieName = dataArr[1]; 
+        liriSwitch();   
         }     
 
-        liriSwitch();
+        // liriSwitch();
 
         }
     });
