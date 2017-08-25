@@ -24,6 +24,13 @@ for (i = 3; i < arg.length; i++) {
         handle += arg[i];
     }
 }
+if (command === 'do-what-it-says'){
+    doThing();
+}else {
+    liriSwitch();
+}
+
+function liriSwitch() {
 switch (command) {
     case "my-tweets":
         twitter();
@@ -34,12 +41,13 @@ switch (command) {
     case "movie-this":
         omdb();
         break;
-    case "do-what-it-says":
-        doThing();
-        break;
+    // case "do-what-it-says":
+    //     doThing();
+    //     break;
     default:
         console.log("{Please enter a command: my-tweets, spotify-this-song, movie-this, do-what-it-says}");
         break;
+}
 }
 //------------------ Twitter-----------------------------------------
 // you make an object that has paramters (params)in it
@@ -71,12 +79,11 @@ function twitter() {
 //------------------Spotify-----------------------------------------
 function spotify() {
     if (process.argv[3] === undefined) {
-        songName = "The+Sign";
     }
     var spotify_params = {
         type: 'track',
         query: songName,
-        limit: 2
+        limit: 1
     };
     spotifyClient.search(spotify_params, spotifySong);
 
@@ -144,23 +151,26 @@ function doThing() {
     fs.readFile("random.txt", "utf8", function(error, data) {
         if (error) {
             return console.log(error);
-        }
+        } else {
         var dataArr = data.split(",");
         command = dataArr[0];
-       
-        liriTweet = dataArr[1];
-        songName = dataArr[1];
-        movieName = dataArr[1];
-        switch (command) {
-            case "my-tweets":
-                twitter();
-                break;
-            case "spotify-this-song":
-                spotify();
-                break;
-            case "movie-this":
-                omdb()
-                break;
+        value =  dataArr[1];
+
+        // console.log(command);
+        // console.log(value);
+
+        if (value === undefined){
+        handle = 'yoshistunts';
+        songName = 'The+Sign';
+        movieName = 'Mr.+Nobody';  
+        }else {
+        handle = value;
+        songName = value;
+        movieName = value;    
+        }     
+
+        liriSwitch();
+
         }
     });
 }
